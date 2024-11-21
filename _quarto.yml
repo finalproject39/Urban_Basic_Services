@@ -6,11 +6,11 @@ execute:
   echo: true
 
 book:
-  title: "YOUR PROJECT TITLE"
+  title: "Analysis of Urban Basic Services"
   author:
-    - AUTHOR1 (UNI1)
-    - AUTHOR2 (UNI2)
-  repo-url: https://github.com/YOUR_GITHUB_ACCOUNT/REPO_NAME
+    - Ziran Lin (zl3509)
+    - Jingyi Wu (jw4652)
+  repo-url: https://finalproject39.github.io/Urban_Basic_Services/
   date: today
   page-footer:
     right: |

@@ -2,4 +2,49 @@
 
 ## Description
 
+We chose the basic services in cities and urban areas data.The database builds on work carried out by the UN-Habitat. The database includes estimates from Multiple Indicator Cluster Surveys (MICS), Demographic and Health Surveys (DHS), Malaria Indicators Survey (MIS). Standard estimation procedures were used across the data sources so that estimates may be compared both across countries and over time. The dataset is in xlsx format, containing 60 columns (e.g., Region Name, Country, LDC, year, Improved water sources, etc.) and 16675 rows. Each row represents the proportion of the population in a city with access to different basic services in a given year. The data updated yearly. We plan to use readxl package to import the data.
+
+Data source: <https://data.unhabitat.org/pages/access-to-basic-services-in-cities-and-urban-areas>
+
 ## Missing value analysis
+
+```{r}
+library(readxl)
+
+data <- read_excel("/Users/macbookpro/Desktop/DS/EDAV/basic_service.xlsx")
+
+col_na_percentage <- colSums(is.na(data)) / nrow(data) * 100
+
+col_na_df <- data.frame(
+  Variable = names(col_na_percentage),
+  NA_Percentage = col_na_percentage,
+  row.names = NULL
+)
+```
+
+```{r, fig.height=12, fig.width=10}
+library(ggplot2)
+col_na_df[col_na_df$NA_Percentage > 0, ] |>
+  ggplot(aes(x = reorder(Variable, NA_Percentage), y = NA_Percentage)) +
+  geom_bar(stat = "identity", fill = "skyblue", width=0.6) +
+  coord_flip() + 
+  labs(
+    title = "Percentage of Missing Values per Column",
+    x = "Variables",
+    y = "Percentage of Missing Values"
+  ) +
+  theme_minimal()
+```
+
+The figure shows that out of 60 columns, 40 contain missing values, with missingness ranging from 0% to 100%. Most variables have missing values below 50%, while 11 variables have more than 50% missing values. The variables with the highest missingness are ethanol and filtration, with missing values close to 100%. They could be considered for imputation or removal, depending on their importance to the analysis.
+
+```{r}
+col_na_df |>
+  ggplot(aes(x = "", y = NA_Percentage)) +
+  geom_boxplot() +
+  labs(title = "Boxplot of Missing Values per Column") +
+  theme_minimal()
+```
+
+From the figure, more than a quarter of all columns have a proportion of missing values of 0, and also a quarter of the columns are greater than 35%. There are also values with a very large percentage of missing values, close to 100%. The median percentage of missing values for all columns is about 15%. Overall the percentage of missing values is not very large, but there are some columns with a lot of missing values that need to be processed.
+

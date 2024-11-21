@@ -2,22 +2,31 @@
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "YOUR PROJECT TITLE",
+    "title": "Analysis of Urban Basic Services",
     "section": "",
-    "text": "1 Introduction"
+    "text": "1 Introduction\nOur objective focuses on visualizing the proportion of the population in cities with access to basic services (e.g., clean energy for lighting, improved sanitation facilities). This topic was chosen because access to these services is an important measure of urban development and social equity, and a larger population with access to service improvements indicates a better balance between urban development and social equity. Understanding gaps and trends in service access can reveal how different cities and countries are improving the quality of life of their residents. Questions we want to explore include: which areas have the highest rates of access to different services? How do levels of access to different services vary over time?",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introduction</span>"
+    ]
   },
   {
-    "objectID": "data.html#description",
-    "href": "data.html#description",
+    "objectID": "data.html",
+    "href": "data.html",
     "title": "2  Data",
-    "section": "2.1 Description",
-    "text": "2.1 Description"
+    "section": "",
+    "text": "2.1 Description\nWe chose the basic services in cities and urban areas data.The database builds on work carried out by the UN-Habitat. The database includes estimates from Multiple Indicator Cluster Surveys (MICS), Demographic and Health Surveys (DHS), Malaria Indicators Survey (MIS). Standard estimation procedures were used across the data sources so that estimates may be compared both across countries and over time. The dataset is in xlsx format, containing 60 columns (e.g., Region Name, Country, LDC, year, Improved water sources, etc.) and 16675 rows. Each row represents the proportion of the population in a city with access to different basic services in a given year. The data updated yearly. We plan to use readxl package to import the data.\nData source: https://data.unhabitat.org/pages/access-to-basic-services-in-cities-and-urban-areas",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Data</span>"
+    ]
   },
   {
     "objectID": "data.html#missing-value-analysis",
     "href": "data.html#missing-value-analysis",
     "title": "2  Data",
     "section": "2.2 Missing value analysis",
-    "text": "2.2 Missing value analysis"
+    "text": "2.2 Missing value analysis\n\n\nCode\nlibrary(readxl)\n\ndata &lt;- read_excel(\"/Users/macbookpro/Desktop/DS/EDAV/basic_service.xlsx\")\n\ncol_na_percentage &lt;- colSums(is.na(data)) / nrow(data) * 100\n\ncol_na_df &lt;- data.frame(\n  Variable = names(col_na_percentage),\n  NA_Percentage = col_na_percentage,\n  row.names = NULL\n)\n\n\n\n\nCode\nlibrary(ggplot2)\ncol_na_df[col_na_df$NA_Percentage &gt; 0, ] |&gt;\n  ggplot(aes(x = reorder(Variable, NA_Percentage), y = NA_Percentage)) +\n  geom_bar(stat = \"identity\", fill = \"skyblue\", width=0.6) +\n  coord_flip() + \n  labs(\n    title = \"Percentage of Missing Values per Column\",\n    x = \"Variables\",\n    y = \"Percentage of Missing Values\"\n  ) +\n  theme_minimal()\n\n\n\n\n\n\n\n\n\nThe figure shows that out of 60 columns, 40 contain missing values, with missingness ranging from 0% to 100%. Most variables have missing values below 50%, while 11 variables have more than 50% missing values. The variables with the highest missingness are ethanol and filtration, with missing values close to 100%. They could be considered for imputation or removal, depending on their importance to the analysis.\n\n\nCode\ncol_na_df |&gt;\n  ggplot(aes(x = \"\", y = NA_Percentage)) +\n  geom_boxplot() +\n  labs(title = \"Boxplot of Missing Values per Column\") +\n  theme_minimal()\n\n\n\n\n\n\n\n\n\nFrom the figure, more than a quarter of all columns have a proportion of missing values of 0, and also a quarter of the columns are greater than 35%. There are also values with a very large percentage of missing values, close to 100%. The median percentage of missing values for all columns is about 15%. Overall the percentage of missing values is not very large, but there are some columns with a lot of missing values that need to be processed.",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Data</span>"
+    ]
   }
 ]
