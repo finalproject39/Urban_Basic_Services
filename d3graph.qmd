@@ -14,7 +14,7 @@
 
 <style>
   #conclusion-box {
-    margin-left: 100px;
+    margin-left: 90px;
   }
 </style>
 <div id="conclusion-box">
