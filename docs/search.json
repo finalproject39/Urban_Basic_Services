@@ -4,7 +4,7 @@
     "href": "index.html",
     "title": "Analysis of Urban Basic Services",
     "section": "",
-    "text": "1 Introduction\nOur objective focuses on visualizing the proportion of the population in cities with access to basic services (e.g., clean energy for lighting, improved sanitation facilities). This topic was chosen because access to these services is an important measure of urban development and social equity, and a larger population with access to service improvements indicates a better balance between urban development and social equity. Understanding gaps and trends in service access can reveal how different cities and countries are improving the quality of life of their residents. Questions we want to explore include: which areas have the highest rates of access to different services? How do levels of access to different services vary over time?",
+    "text": "1 Introduction\nThis project investigates the annual changes and regional differences in basic service indicators such as improved water sources, improved sanitation facilities, adequate living space, and clean fuels, focusing on poorer countries. The analysis covers national and regional data and delves into categories based on criteria such as whether the country is a Least Developed Country (LDC) or a Landlocked Developing Country (LLDC). This topic was chosen because access to these services is an important measure of urban development and social equity, and a larger population with access to service improvements indicates a better balance between urban development and social equity. Understanding gaps and trends in service access can reveal how different cities and countries are improving the quality of life of their residents. Questions we want to explore include: which areas have the highest rates of access to different services? How do levels of access to different services vary over time?",
     "crumbs": [
       "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introduction</span>"
     ]
@@ -24,9 +24,209 @@
     "href": "data.html#missing-value-analysis",
     "title": "2  Data",
     "section": "2.2 Missing value analysis",
-    "text": "2.2 Missing value analysis\n\n\nCode\nlibrary(readxl)\n\ndata &lt;- read_excel(\"/Users/macbookpro/Desktop/DS/EDAV/basic_service.xlsx\")\n\ncol_na_percentage &lt;- colSums(is.na(data)) / nrow(data) * 100\n\ncol_na_df &lt;- data.frame(\n  Variable = names(col_na_percentage),\n  NA_Percentage = col_na_percentage,\n  row.names = NULL\n)\n\n\n\n\nCode\nlibrary(ggplot2)\ncol_na_df[col_na_df$NA_Percentage &gt; 0, ] |&gt;\n  ggplot(aes(x = reorder(Variable, NA_Percentage), y = NA_Percentage)) +\n  geom_bar(stat = \"identity\", fill = \"skyblue\", width=0.6) +\n  coord_flip() + \n  labs(\n    title = \"Percentage of Missing Values per Column\",\n    x = \"Variables\",\n    y = \"Percentage of Missing Values\"\n  ) +\n  theme_minimal()\n\n\n\n\n\n\n\n\n\nThe figure shows that out of 60 columns, 40 contain missing values, with missingness ranging from 0% to 100%. Most variables have missing values below 50%, while 11 variables have more than 50% missing values. The variables with the highest missingness are ethanol and filtration, with missing values close to 100%. They could be considered for imputation or removal, depending on their importance to the analysis.\n\n\nCode\ncol_na_df |&gt;\n  ggplot(aes(x = \"\", y = NA_Percentage)) +\n  geom_boxplot() +\n  labs(title = \"Boxplot of Missing Values per Column\") +\n  theme_minimal()\n\n\n\n\n\n\n\n\n\nFrom the figure, more than a quarter of all columns have a proportion of missing values of 0, and also a quarter of the columns are greater than 35%. There are also values with a very large percentage of missing values, close to 100%. The median percentage of missing values for all columns is about 15%. Overall the percentage of missing values is not very large, but there are some columns with a lot of missing values that need to be processed.",
+    "text": "2.2 Missing value analysis\n\n\nCode\nlibrary(readxl)\n\ndata &lt;- read_excel(\"data/basic_service.xlsx\")\n\ncol_na_percentage &lt;- colSums(is.na(data)) / nrow(data) * 100\n\ncol_na_df &lt;- data.frame(\n  Variable = names(col_na_percentage),\n  NA_Percentage = col_na_percentage,\n  row.names = NULL\n)\n\n\n\n\nCode\nlibrary(ggplot2)\ncol_na_df[col_na_df$NA_Percentage &gt; 0, ] |&gt;\n  ggplot(aes(x = reorder(Variable, NA_Percentage), y = NA_Percentage)) +\n  geom_bar(stat = \"identity\", fill = \"skyblue\", width=0.6) +\n  coord_flip() + \n  labs(\n    title = \"Percentage of Missing Values per Column\",\n    x = \"Variables\",\n    y = \"Percentage of Missing Values\"\n  ) +\n  theme_minimal()\n\n\n\n\n\n\n\n\n\nThe figure shows that out of 60 columns, 40 contain missing values, with missingness ranging from 0% to 100%. Most variables have missing values below 50%, while 11 variables have more than 50% missing values. The variables with the highest missingness are ethanol and filtration, with missing values close to 100%. They could be considered for imputation or removal, depending on their importance to the analysis.\n\n\nCode\ncol_na_df |&gt;\n  ggplot(aes(x = \"\", y = NA_Percentage)) +\n  geom_boxplot() +\n  labs(title = \"Boxplot of Missing Values per Column\") +\n  theme_minimal()\n\n\n\n\n\n\n\n\n\nFrom the figure, more than a quarter of all columns have a proportion of missing values of 0, and also a quarter of the columns are greater than 35%. There are also values with a very large percentage of missing values, close to 100%. The median percentage of missing values for all columns is about 15%. Overall the percentage of missing values is not very large, but there are some columns with a lot of missing values that need to be processed.",
     "crumbs": [
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Data</span>"
+    ]
+  },
+  {
+    "objectID": "results.html",
+    "href": "results.html",
+    "title": "3  Results",
+    "section": "",
+    "text": "3.1 Total Improved Sanitation by LLDC\nCode\ndata1 &lt;- data |&gt;\n  filter(`National/SubNationalClassification`==\"Region\", Year %in% c(2010,2014,2018,2022))\n\nggplot(data1, aes(x=factor(LLDC), y=`TotalImprovedSanitation`, fill = factor(LLDC)))+\n  geom_boxplot(outlier.color = \"red\", outlier.size = 1)+\n  facet_wrap(~Year, nrow = 1) +\n  labs(\n    title = \"Boxlpot of Total Improved Sanitation by LLDC\",\n    x=\"LLDC\",\n    y = \"Total Improved Sanitation(%)\",\n    fill = \"LLDC\"\n    )+\n  theme_minimal() +\n    theme(\n    axis.text.x = element_text(size = 8,angle = 45, hjust = 1),\n  )\n\n\nWarning: Removed 1 row containing non-finite outside the scale range\n(`stat_boxplot()`).\nFrom 2010 to 2022, both landlocked and non-landlocked countries improved their sanitation coverage, with non-landlocked countries showing more significant progress. In 2010, non-landlocked countries had a higher median and narrower distribution, indicating more consistent coverage. By 2014, the median for landlocked countries improved but still showed significant regional disparities, with some areas lagging behind. By 2022, the median for non-landlocked countries reached nearly 100%, demonstrating high consistency, while landlocked countries still exhibited a wider range of coverage, reflecting greater disparities.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Results</span>"
+    ]
+  },
+  {
+    "objectID": "results.html#histogram-of-total-improved-water-by-subregion",
+    "href": "results.html#histogram-of-total-improved-water-by-subregion",
+    "title": "3  Results",
+    "section": "3.2 Histogram of total improved water by subregion",
+    "text": "3.2 Histogram of total improved water by subregion\n\n\nCode\ndata2022R |&gt;\nggplot(aes(x = TotalImprovedwater)) + \n  geom_histogram(fill = \"cornflowerblue\", color = \"black\", bins = 20) + \n  facet_wrap(vars(SubregionName),scales = \"free_y\") +\n  labs(title = 'Total Improved Water in Different Subregions', \n       x = 'Total improved water') +\n  theme_minimal()\n\n\nWarning: Removed 2 rows containing non-finite outside the scale range\n(`stat_bin()`).\n\n\n\n\n\n\n\n\n\nCentral Asia: Most regions have a very high volume of improved water, approaching 100%. This indicates that improved water coverage is generally high in Central Asia.\nSouth-eastern Asia: The distribution in this region is various, with the amount of improved water ranging from low to high. The improved water supply is very low in some areas (close to 0%) and very high in others (close to 100%). This indicates that there is a wide variation in the coverage of improved water sources across different regions in South-eastern Asia. While some regions have made significant progress in water resource improvement, others may still face severe challenges.\nSub-Saharan Africa: All improved water resources are greater than 50%, with some approaching 100%. This indicates that the majority of regions is doing well, with a small number of regions still able to further increase the amount of improved water resources.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Results</span>"
+    ]
+  },
+  {
+    "objectID": "results.html#access-to-drinking-water-services-vs.-total-improved-water-by-ldc",
+    "href": "results.html#access-to-drinking-water-services-vs.-total-improved-water-by-ldc",
+    "title": "3  Results",
+    "section": "3.3 Access to drinking water services vs. total improved water by LDC",
+    "text": "3.3 Access to drinking water services vs. total improved water by LDC\n\n\nCode\ndata2022R |&gt;\nggplot(aes(x = TotalImprovedwater, y = Accesstobasicdrinkingwaterservices)) +\n  geom_hex(bins = 15) +\n  facet_wrap(~ LDC) +\n  scale_fill_gradient(low = \"lightblue\", high = \"darkblue\")+\n  labs(title = 'Access to Drinking Water Services vs. Total Improved Water by LDC',\n       x = 'Total improved water',\n       y = 'Access to drinking water')\n\n\nWarning: Removed 4 rows containing non-finite outside the scale range\n(`stat_binhex()`).\n\n\n\n\n\n\n\n\n\nNot Least Developed Country: Access to basic drinking water services and improved water resources are directly proportional in non-LDCs, and many of them have high levels, with only a few at low levels.\nLeast Developed Country: Access to basic drinking water services and improved water resources are proportional in most of the LDCs. However, there are some regions where even with high levels of improved water resources, access to basic drinking water services are still low, indicating that many people in these regions still do not have access to water within a short distance. And the overall level is not high.\nThis also shows that there is a relationship between access to drinking water and the level of development of the country, with the least developed countries having smaller access to drinking water.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Results</span>"
+    ]
+  },
+  {
+    "objectID": "results.html#access-to-drinking-water-services-vs.-total-improved-water-by-subregion",
+    "href": "results.html#access-to-drinking-water-services-vs.-total-improved-water-by-subregion",
+    "title": "3  Results",
+    "section": "3.4 Access to drinking water services vs. total improved water by subregion",
+    "text": "3.4 Access to drinking water services vs. total improved water by subregion\n\n\nCode\ndata2022R |&gt;\nggplot(aes(x = TotalImprovedwater, y = Accesstobasicdrinkingwaterservices, \n           color = SubregionName)) +\n  geom_point() +\n  labs(title = 'Access to Drinking Water Services vs. Total Improved Water by Subregion',\n       color = 'Subregion') +\n  theme_minimal()\n\n\nWarning: Removed 4 rows containing missing values or values outside the scale range\n(`geom_point()`).\n\n\n\n\n\n\n\n\n\nWe continued to explore access to drinking water in different subregions based on the previous question. We find that those regions with low access to drinking water even though they have high improved water resources are located in South-eastern Asia.\nCentral Asia: Regions located in Central Asia have high levels of improved water and access to drinking water resources approaching 100%.\nSub-Saharan Africa: Access to drinking water resources and improved water resources are proportional in Sub-Saharan Africa, with the overall level slightly lower than in Central Asia, but also at a higher level.\nSouth-eastern Asia: The proportion of accessible drinking water resources is low in many regions and not proportional to the amount of improved water resource. This means that many South-eastern Asia regions not only need to increase the volume of improved water, but also work to increase access to the improved water resources that are already available.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Results</span>"
+    ]
+  },
+  {
+    "objectID": "results.html#access-to-different-basic-services-in-bangladesh",
+    "href": "results.html#access-to-different-basic-services-in-bangladesh",
+    "title": "3  Results",
+    "section": "3.5 Access to Different Basic Services in Bangladesh",
+    "text": "3.5 Access to Different Basic Services in Bangladesh\n\n\nCode\ndataBGD &lt;- data |&gt;\n  filter(`National/SubNationalClassification`=='National'\n         &`Country/Territory/AreaName`=='Bangladesh') |&gt;\n  select(Year, TotalImprovedwater, TotalImprovedSanitation, Durablestructure,\n         Totalpiped, Totalnonpiped, Connectiontosewerage, Totalnonsewered)\n\ndataBGD |&gt;\n  pivot_longer(cols = TotalImprovedwater:Durablestructure,\n               names_to = 'Indicator', values_to = 'Value') |&gt;\n  ggplot(aes(x = Year, y = Value, color = Indicator, group = Indicator)) +\n  geom_line() +\n  geom_point()+\n  scale_x_continuous(breaks = dataBGD$Year) +\n  labs(x = \"Year\", y = \"Value\", color = \"Indicator\",\n       title = 'Basic Services in Bangladesh Over Years')+\n  theme(legend.position = \"bottom\")\n\n\n\n\n\n\n\n\n\nTotal Improved water: Improved water resources in Bangladesh have been maintained at a very high level close to 100% from 1994 to 2019, indicating that Bangladesh has been performing well in improving water resources for a long time.\nTotal Improved Sanitation: The level of improved sanitation has been volatile, first rising and then falling, reaching its lowest level in 2004 and then gradually recovering to reach its highest level in 2019. This indicates that Bangladesh is still making efforts to improve sanitation and has had better results in recent years.\nDurable Structure: The overall levels of durable structure are lower than sanitation improvements. The trends of durable housing structures and improved sanitation conditions are very similar, both initially increasing and then decreasing, reaching their lowest levels in 2004, before beginning to rise again. However, after the initial recovery, the durable structures experienced two more fluctuations, with the highest level reached in 2017.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Results</span>"
+    ]
+  },
+  {
+    "objectID": "results.html#bar-chart-of-improved-water-in-bangladesh-by-water-type",
+    "href": "results.html#bar-chart-of-improved-water-in-bangladesh-by-water-type",
+    "title": "3  Results",
+    "section": "3.6 Bar chart of improved water in Bangladesh by water type",
+    "text": "3.6 Bar chart of improved water in Bangladesh by water type\n\n\nCode\ndataBGD |&gt;\n  pivot_longer(cols = Totalpiped:Totalnonpiped,\n               names_to = 'WaterType', values_to = 'Value') |&gt;\n  ggplot(aes(x = Year, y = Value, fill = WaterType)) +\n  geom_bar(stat = \"identity\", position = \"stack\") +\n  scale_x_continuous(breaks = dataBGD$Year) +\n  scale_fill_manual(values = c(\"cornflowerblue\", \"lightcoral\"),\n                     labels = c(\"Piped Water\", \"Non-piped Water\"))+\n  labs(title = \"Improved Water by Type Over Years\")\n\n\n\n\n\n\n\n\n\nIn the previous question we found that Bangladesh is doing well in improving water resources, and we further explored how well it is doing for different type of water resources.\nAlthough the overall improved water resources are close to 100% every year, the improvement in piped and non-piped water is not the same. The proportion of improved piped water is greater than that of non-piped water every year. Even in 2011, when the proportion of non-piped water was the highest, it was still less than 50%.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Results</span>"
+    ]
+  },
+  {
+    "objectID": "results.html#cleveland-plot-of-sufficient-living-area-and-durable-structure-by-ldc",
+    "href": "results.html#cleveland-plot-of-sufficient-living-area-and-durable-structure-by-ldc",
+    "title": "3  Results",
+    "section": "3.7 Cleveland Plot of Sufficient Living Area and Durable Structure by LDC",
+    "text": "3.7 Cleveland Plot of Sufficient Living Area and Durable Structure by LDC\n\n\nCode\ndata7 &lt;- \n  filter(data, `National/SubNationalClassification` == \"National\", Year == 2022) |&gt;\n  arrange(Sufficientlivingarea)\n\ndata7_long &lt;- data7 |&gt;\n  select(`Country/Territory/AreaName`, LDC, Sufficientlivingarea, Durablestructure) |&gt;\n  pivot_longer(\n    cols = c(Sufficientlivingarea, Durablestructure),\n    names_to = \"Indicator\",\n    values_to = \"Value\"\n  ) |&gt;\n  mutate(`Country/Territory/AreaName` = factor(`Country/Territory/AreaName`, levels = unique(data7$`Country/Territory/AreaName`)))\n\nggplot(data7_long, aes(x = Value, y = `Country/Territory/AreaName`, color = Indicator)) +\n  geom_point(size = 3) +\n  facet_wrap(~ LDC, scales = \"free_y\") + \n  labs(\n    title = \"Cleveland Plot of Sufficient Living Area and Durable Structure by LDC\",\n    x = \"Value (%)\",\n    y = \"Country/Territory/Area\",\n    color = \"Indicator\"\n  ) +\n  theme_minimal() +\n  theme(legend.position = \"top\")\n\n\n\n\n\n\n\n\n\nThis figure shows that non-least developed countries generally have higher values for both indicators, with most exceeding 80%. In contrast, least developed countries have lower overall values, with a wider range from 20% to nearly 100%. Some countries, like the Philippines, show significantly lower values for Sufficient Living Area compared to others. Most countries exhibit similar performance in Durable Structure and Sufficient Living Area, with non-least developed countries showing greater consistency between the two indicators. For example, Thailand and Uzbekistan have nearly overlapping values, demonstrating balanced performance.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Results</span>"
+    ]
+  },
+  {
+    "objectID": "results.html#mosaic-plot-of-ldc-region-and-clean-fuel-levels",
+    "href": "results.html#mosaic-plot-of-ldc-region-and-clean-fuel-levels",
+    "title": "3  Results",
+    "section": "3.8 Mosaic Plot of LDC, Region and Clean Fuel Levels",
+    "text": "3.8 Mosaic Plot of LDC, Region and Clean Fuel Levels\n\n\nCode\ndata8 &lt;- data2022R |&gt;\n  mutate(\n    CleanFuelLevel = case_when(\n      Totalcleanfuel &lt;= 33 ~ \"Low\",\n      Totalcleanfuel &gt; 33 & Totalcleanfuel &lt;= 67 ~ \"Medium\",\n      Totalcleanfuel &gt; 67 ~ \"High\",\n    )\n  )\n\ndata8$CleanFuelLevel &lt;- factor(data8$CleanFuelLevel, \n                              levels = c(\"High\", \"Medium\", \"Low\"),\n                              ordered = TRUE)\n\nmosaic(~LDC + RegionName + CleanFuelLevel,\n       data = data8,\n       shade = TRUE,\n       direction = c(\"v\",\"v\",\"h\"),\n       legend = TRUE,\n       main = \"Mosaic Plot of LDC, Region and Clean Fuel Levels\"\n       )\n\n\n\n\n\n\n\n\n\nThis chart shows that in non-least developed countries, Africa has a high proportion of low clean fuel accessibility, close to the expected value. Asia’s low clean fuel accessibility is significantly higher than expected (blue area), highlighting a severe reliance on low clean fuel levels. Meanwhile, Asia’s high clean fuel accessibility is significantly lower than expected (red area), indicating a substantial gap in clean fuel infrastructure development.\nIn least developed countries, Africa dominates with an extremely high proportion of low clean fuel accessibility (dark blue area), far exceeding expectations. In contrast, Asia has a smaller proportion of low clean fuel accessibility, but regions with high clean fuel accessibility are almost nonexistent.\nOverall, low clean fuel accessibility prevails in Africa. Accelerating the development of clean fuel infrastructure is critical for least developed countries, particularly in Asia.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Results</span>"
+    ]
+  },
+  {
+    "objectID": "results.html#density-curve-of-total-clean-fuel",
+    "href": "results.html#density-curve-of-total-clean-fuel",
+    "title": "3  Results",
+    "section": "3.9 Density Curve of Total Clean Fuel",
+    "text": "3.9 Density Curve of Total Clean Fuel\n\n\nCode\ndata9 &lt;- data2022R\nggplot(data9, aes(x = Totalcleanfuel, color = factor(LDC), fill = factor(LDC))) +\n  geom_density(alpha = 0.4) +\n  labs(\n    title = \"Density Curve of Total Clean Fuel\",\n    x = \"Total Clean Fuel\",\n    y = \"Density\",\n    color = \"LDC\",\n    fill = \"LDC\"\n  ) +\n  theme_minimal()\n\n\nWarning: Removed 19 rows containing non-finite outside the scale range\n(`stat_density()`).\n\n\n\n\n\n\n\n\n\nThe figure indicates a dispersed distribution of clean fuel coverage, with both non-least developed and least developed countries exhibiting two peaks. In non-least developed countries, coverage is primarily concentrated in the high range, with a higher density peak. The distribution is spread more in least-developed countries, with a significantly low coverage range and the highest peak below 25%. This shows that while both groups display a bimodal distribution, non-least developed countries generally have higher overall coverage, whereas least developed countries show greater variability.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Results</span>"
+    ]
+  },
+  {
+    "objectID": "results.html#stacked-bar-chart-of-basic-services",
+    "href": "results.html#stacked-bar-chart-of-basic-services",
+    "title": "3  Results",
+    "section": "3.10 Stacked Bar Chart of Basic Services",
+    "text": "3.10 Stacked Bar Chart of Basic Services\n\n\nCode\ndata10 &lt;- filter(data, `National/SubNationalClassification` == \"National\", Year == 2022)\ndata10_long &lt;- data10 |&gt;\n  select(SubregionName, `Country/Territory/AreaName`, Mobilephone, Electricity_other, Internet) |&gt;\n  pivot_longer(\n    cols = c( Mobilephone, Electricity_other, Internet),\n    names_to = \"Indicator\",\n    values_to = \"Value\"\n  )\n\nggplot(data10_long, aes(x=`Country/Territory/AreaName`, y = Value, fill = Indicator)) +\n  geom_bar(stat = \"identity\", position = \"stack\") +\n  facet_wrap(~SubregionName, scales = \"free_x\") +\n  labs(\n    title = \"Stacked Bar Chart of Basic Services\",\n    x = \"Region Name\",\n    y = \"Value (%)\",\n    fill = \"Indicator\"\n  ) +\n  theme_minimal() +\n  theme(\n    axis.text.x = element_text(size = 6,angle = 45, hjust = 1),\n    strip.text = element_text(size = 8),\n  )\n\n\nWarning: Removed 9 rows containing missing values or values outside the scale range\n(`geom_bar()`).\n\n\n\n\n\n\n\n\n\nThe chart shows that Central Asia (Uzbekistan), Latin America and the Caribbean (Jamaica), and Southern Asia (Nepal) have relatively high coverage rates. In Sub-Saharan Africa, the coverage varies significantly, with notable differences between countries. Mobilephone services dominate in most countries, indicating a high level of accessibility to this infrastructure. Electricity coverage varies greatly across countries, with higher proportions in some (e.g., Kenya and Jamaica) and lower in others (e.g., Mozambique and Liberia). Internet have relatively low shares, indicating limited adoption as primary basic services in most countries.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Results</span>"
+    ]
+  },
+  {
+    "objectID": "d3graph.html",
+    "href": "d3graph.html",
+    "title": "4  Interactive graph",
+    "section": "",
+    "text": "This chart shows the temporal trends of total improved water and total improved sanitation at the country level. Both indicators exhibit an upward trend over time across different countries, though the degree of fluctuation varies. For instance, Bangladesh shows smaller year-to-year variations, while Tanzania experiences more significant growth. Overall, total improved water demonstrates higher and more stable accessibility levels, whereas total improved sanitation values are lower but growing more rapidly.",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Interactive graph</span>"
+    ]
+  },
+  {
+    "objectID": "conclusion.html",
+    "href": "conclusion.html",
+    "title": "5  Conclusion",
+    "section": "",
+    "text": "The study found that most countries have seen significant improvements in the coverage of improved water sources and sanitation facilities from 1990 to 2023, with many non-LDCs approaching 100% coverage of improved water sources. However, the pace of basic service improvements in the least developed countries has been slower, particularly in landlocked countries and Southeast Asia, which still face severe infrastructure deficits. The prevalence of clean fuels has increased globally, but Asia’s high level of clean fuel prevalence is significantly lower than that of Africa, indicating regional imbalances in development. Limitations: During the research process, for regions with limited data and few statistical years, it was not possible to accurately capture the changes in basic service coverage. Future Research Directions: For incomplete data, adopt more effective methods to supplement the data, connect with datasets of other relevant factors, and further explore the causes of trend changes.Lessons Learned: When exploring the correlation between two variables and encountering outliers, additional variables can be introduced for grouping to identify the causes of the anomalies.",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Conclusion</span>"
+    ]
+  },
+  {
+    "objectID": "results.html#total-improved-water-by-subregion",
+    "href": "results.html#total-improved-water-by-subregion",
+    "title": "3  Results",
+    "section": "3.2 Total Improved Water By Subregion",
+    "text": "3.2 Total Improved Water By Subregion\n\n\nCode\ndata2022R |&gt;\nggplot(aes(x = TotalImprovedwater)) + \n  geom_histogram(fill = \"cornflowerblue\", color = \"black\", bins = 20) + \n  facet_wrap(vars(SubregionName),scales = \"free_y\") +\n  labs(title = 'Total Improved Water in Different Subregions', \n       x = 'Total improved water') +\n  theme_minimal()\n\n\nWarning: Removed 2 rows containing non-finite outside the scale range\n(`stat_bin()`).\n\n\n\n\n\n\n\n\n\nCentral Asia: Most regions have a very high volume of improved water, approaching 100%. This indicates that improved water coverage is generally high in Central Asia.\nSouth-eastern Asia: The distribution in this region is various, with the amount of improved water ranging from low to high. The improved water supply is very low in some areas (close to 0%) and very high in others (close to 100%). This indicates that there is a wide variation in the coverage of improved water sources across different regions in South-eastern Asia. While some regions have made significant progress in water resource improvement, others may still face severe challenges.\nSub-Saharan Africa: All improved water resources are greater than 50%, with some approaching 100%. This indicates that the majority of regions is doing well, with a small number of regions still able to further increase the amount of improved water resources.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Results</span>"
+    ]
+  },
+  {
+    "objectID": "results.html#access-to-drinking-water-vs.-total-improved-water-by-ldc",
+    "href": "results.html#access-to-drinking-water-vs.-total-improved-water-by-ldc",
+    "title": "3  Results",
+    "section": "3.3 Access to Drinking Water vs. Total Improved Water by LDC",
+    "text": "3.3 Access to Drinking Water vs. Total Improved Water by LDC\n\n\nCode\ndata2022R |&gt;\nggplot(aes(x = TotalImprovedwater, y = Accesstobasicdrinkingwaterservices)) +\n  geom_hex(bins = 15) +\n  facet_wrap(~ LDC) +\n  scale_fill_gradient(low = \"lightblue\", high = \"darkblue\")+\n  labs(title = 'Access to Drinking Water Services vs. Total Improved Water by LDC',\n       x = 'Total improved water',\n       y = 'Access to drinking water')\n\n\nWarning: Removed 4 rows containing non-finite outside the scale range\n(`stat_binhex()`).\n\n\n\n\n\n\n\n\n\nNot Least Developed Country: Access to basic drinking water services and improved water resources are directly proportional in non-LDCs, and many of them have high levels, with only a few at low levels.\nLeast Developed Country: Access to basic drinking water services and improved water resources are proportional in most of the LDCs. However, there are some regions where even with high levels of improved water resources, access to basic drinking water services are still low, indicating that many people in these regions still do not have access to water within a short distance. And the overall level is not high.\nThis also shows that there is a relationship between access to drinking water and the level of development of the country, with the least developed countries having smaller access to drinking water.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Results</span>"
+    ]
+  },
+  {
+    "objectID": "results.html#access-to-drinking-water-vs.-total-improved-water-by-subregion",
+    "href": "results.html#access-to-drinking-water-vs.-total-improved-water-by-subregion",
+    "title": "3  Results",
+    "section": "3.4 Access to Drinking Water vs. Total Improved Water by Subregion",
+    "text": "3.4 Access to Drinking Water vs. Total Improved Water by Subregion\n\n\nCode\ndata2022R |&gt;\nggplot(aes(x = TotalImprovedwater, y = Accesstobasicdrinkingwaterservices, \n           color = SubregionName)) +\n  geom_point() +\n  labs(title = 'Access to Drinking Water Services vs. Total Improved Water by Subregion',\n       color = 'Subregion') +\n  theme_minimal()\n\n\nWarning: Removed 4 rows containing missing values or values outside the scale range\n(`geom_point()`).\n\n\n\n\n\n\n\n\n\nWe continued to explore access to drinking water in different subregions based on the previous question. We find that those regions with low access to drinking water even though they have high improved water resources are located in South-eastern Asia.\nCentral Asia: Regions located in Central Asia have high levels of improved water and access to drinking water resources approaching 100%.\nSub-Saharan Africa: Access to drinking water resources and improved water resources are proportional in Sub-Saharan Africa, with the overall level slightly lower than in Central Asia, but also at a higher level.\nSouth-eastern Asia: The proportion of accessible drinking water resources is low in many regions and not proportional to the amount of improved water resource. This means that many South-eastern Asia regions not only need to increase the volume of improved water, but also work to increase access to the improved water resources that are already available.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Results</span>"
+    ]
+  },
+  {
+    "objectID": "results.html#improved-water-in-bangladesh-by-water-type",
+    "href": "results.html#improved-water-in-bangladesh-by-water-type",
+    "title": "3  Results",
+    "section": "3.6 Improved Water in Bangladesh by Water Type",
+    "text": "3.6 Improved Water in Bangladesh by Water Type\n\n\nCode\ndataBGD |&gt;\n  pivot_longer(cols = Totalpiped:Totalnonpiped,\n               names_to = 'WaterType', values_to = 'Value') |&gt;\n  ggplot(aes(x = Year, y = Value, fill = WaterType)) +\n  geom_bar(stat = \"identity\", position = \"stack\") +\n  scale_x_continuous(breaks = dataBGD$Year) +\n  scale_fill_manual(values = c(\"cornflowerblue\", \"lightcoral\"),\n                     labels = c(\"Piped Water\", \"Non-piped Water\"))+\n  labs(title = \"Improved Water by Type Over Years\")\n\n\n\n\n\n\n\n\n\nIn the previous question we found that Bangladesh is doing well in improving water resources, and we further explored how well it is doing for different type of water resources.\nAlthough the overall improved water resources are close to 100% every year, the improvement in piped and non-piped water is not the same. The proportion of improved piped water is greater than that of non-piped water every year. Even in 2011, when the proportion of non-piped water was the highest, it was still less than 50%.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Results</span>"
+    ]
+  },
+  {
+    "objectID": "results.html#sufficient-living-area-and-durable-structure-by-ldc",
+    "href": "results.html#sufficient-living-area-and-durable-structure-by-ldc",
+    "title": "3  Results",
+    "section": "3.7 Sufficient Living Area and Durable Structure by LDC",
+    "text": "3.7 Sufficient Living Area and Durable Structure by LDC\n\n\nCode\ndata7 &lt;- \n  filter(data, `National/SubNationalClassification` == \"National\", Year == 2022) |&gt;\n  arrange(Sufficientlivingarea)\n\ndata7_long &lt;- data7 |&gt;\n  select(`Country/Territory/AreaName`, LDC, Sufficientlivingarea, Durablestructure) |&gt;\n  pivot_longer(\n    cols = c(Sufficientlivingarea, Durablestructure),\n    names_to = \"Indicator\",\n    values_to = \"Value\"\n  ) |&gt;\n  mutate(`Country/Territory/AreaName` = factor(`Country/Territory/AreaName`, levels = unique(data7$`Country/Territory/AreaName`)))\n\nggplot(data7_long, aes(x = Value, y = `Country/Territory/AreaName`, color = Indicator)) +\n  geom_point(size = 3) +\n  facet_wrap(~ LDC, scales = \"free_y\") + \n  labs(\n    title = \"Cleveland Plot of Sufficient Living Area and Durable Structure by LDC\",\n    x = \"Value (%)\",\n    y = \"Country/Territory/Area\",\n    color = \"Indicator\"\n  ) +\n  theme_minimal() +\n  theme(legend.position = \"top\")\n\n\n\n\n\n\n\n\n\nThis figure shows that non-least developed countries generally have higher values for both indicators, with most exceeding 80%. In contrast, least developed countries have lower overall values, with a wider range from 20% to nearly 100%. Some countries, like the Philippines, show significantly lower values for Sufficient Living Area compared to others. Most countries exhibit similar performance in Durable Structure and Sufficient Living Area, with non-least developed countries showing greater consistency between the two indicators. For example, Thailand and Uzbekistan have nearly overlapping values, demonstrating balanced performance.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Results</span>"
+    ]
+  },
+  {
+    "objectID": "results.html#ldc-region-and-clean-fuel-levels",
+    "href": "results.html#ldc-region-and-clean-fuel-levels",
+    "title": "3  Results",
+    "section": "3.8 LDC, Region and Clean Fuel Levels",
+    "text": "3.8 LDC, Region and Clean Fuel Levels\n\n\nCode\ndata8 &lt;- data2022R |&gt;\n  mutate(\n    CleanFuelLevel = case_when(\n      Totalcleanfuel &lt;= 33 ~ \"Low\",\n      Totalcleanfuel &gt; 33 & Totalcleanfuel &lt;= 67 ~ \"Medium\",\n      Totalcleanfuel &gt; 67 ~ \"High\",\n    )\n  )\n\ndata8$CleanFuelLevel &lt;- factor(data8$CleanFuelLevel, \n                              levels = c(\"High\", \"Medium\", \"Low\"),\n                              ordered = TRUE)\n\nmosaic(~LDC + RegionName + CleanFuelLevel,\n       data = data8,\n       shade = TRUE,\n       direction = c(\"v\",\"v\",\"h\"),\n       legend = TRUE,\n       main = \"Mosaic Plot of LDC, Region and Clean Fuel Levels\"\n       )\n\n\n\n\n\n\n\n\n\nThis chart shows that in non-least developed countries, Africa has a high proportion of low clean fuel accessibility, close to the expected value. Asia’s low clean fuel accessibility is significantly higher than expected (blue area), highlighting a severe reliance on low clean fuel levels. Meanwhile, Asia’s high clean fuel accessibility is significantly lower than expected (red area), indicating a substantial gap in clean fuel infrastructure development.\nIn least developed countries, Africa dominates with an extremely high proportion of low clean fuel accessibility (dark blue area), far exceeding expectations. In contrast, Asia has a smaller proportion of low clean fuel accessibility, but regions with high clean fuel accessibility are almost nonexistent.\nOverall, low clean fuel accessibility prevails in Africa. Accelerating the development of clean fuel infrastructure is critical for least developed countries, particularly in Asia.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Results</span>"
+    ]
+  },
+  {
+    "objectID": "results.html#total-clean-fuel-by-ldc",
+    "href": "results.html#total-clean-fuel-by-ldc",
+    "title": "3  Results",
+    "section": "3.9 Total Clean Fuel by LDC",
+    "text": "3.9 Total Clean Fuel by LDC\n\n\nCode\ndata9 &lt;- data2022R\nggplot(data9, aes(x = Totalcleanfuel, color = factor(LDC), fill = factor(LDC))) +\n  geom_density(alpha = 0.4) +\n  labs(\n    title = \"Density Curve of Total Clean Fuel\",\n    x = \"Total Clean Fuel\",\n    y = \"Density\",\n    color = \"LDC\",\n    fill = \"LDC\"\n  ) +\n  theme_minimal()\n\n\nWarning: Removed 19 rows containing non-finite outside the scale range\n(`stat_density()`).\n\n\n\n\n\n\n\n\n\nThe figure indicates a dispersed distribution of clean fuel coverage, with both non-least developed and least developed countries exhibiting two peaks. In non-least developed countries, coverage is primarily concentrated in the high range, with a higher density peak. The distribution is spread more in least-developed countries, with a significantly low coverage range and the highest peak below 25%. This shows that while both groups display a bimodal distribution, non-least developed countries generally have higher overall coverage, whereas least developed countries show greater variability.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Results</span>"
+    ]
+  },
+  {
+    "objectID": "results.html#basic-services-by-subregion",
+    "href": "results.html#basic-services-by-subregion",
+    "title": "3  Results",
+    "section": "3.10 Basic Services by Subregion",
+    "text": "3.10 Basic Services by Subregion\n\n\nCode\ndata10 &lt;- filter(data, `National/SubNationalClassification` == \"National\", Year == 2022)\ndata10_long &lt;- data10 |&gt;\n  select(SubregionName, `Country/Territory/AreaName`, Mobilephone, Electricity_other, Internet) |&gt;\n  pivot_longer(\n    cols = c( Mobilephone, Electricity_other, Internet),\n    names_to = \"Indicator\",\n    values_to = \"Value\"\n  )\n\nggplot(data10_long, aes(x=`Country/Territory/AreaName`, y = Value, fill = Indicator)) +\n  geom_bar(stat = \"identity\", position = \"stack\") +\n  facet_wrap(~SubregionName, scales = \"free_x\") +\n  labs(\n    title = \"Stacked Bar Chart of Basic Services\",\n    x = \"Region Name\",\n    y = \"Value (%)\",\n    fill = \"Indicator\"\n  ) +\n  theme_minimal() +\n  theme(\n    axis.text.x = element_text(size = 6,angle = 45, hjust = 1),\n    strip.text = element_text(size = 8),\n  )\n\n\nWarning: Removed 9 rows containing missing values or values outside the scale range\n(`geom_bar()`).\n\n\n\n\n\n\n\n\n\nThe chart shows that Central Asia (Uzbekistan), Latin America and the Caribbean (Jamaica), and Southern Asia (Nepal) have relatively high coverage rates. In Sub-Saharan Africa, the coverage varies significantly, with notable differences between countries. Mobilephone services dominate in most countries, indicating a high level of accessibility to this infrastructure. Electricity coverage varies greatly across countries, with higher proportions in some (e.g., Kenya and Jamaica) and lower in others (e.g., Mozambique and Liberia). Internet have relatively low shares, indicating limited adoption as primary basic services in most countries.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Results</span>"
     ]
   }
 ]
