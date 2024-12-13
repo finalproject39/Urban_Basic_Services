@@ -16,7 +16,17 @@
   #conclusion-box {
     margin-left: 90px;
   }
+  #tooltip {
+    position: absolute;
+    visibility: hidden;
+    padding: 10px;
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 5px;
+    pointer-events: none;
+  }
 </style>
+<div id="tooltip"></div>
 <div id="conclusion-box">
   <p>
   This chart shows the temporal trends of total improved water and total improved sanitation at the country level. Both indicators exhibit an upward trend over time across different countries, though the degree of fluctuation varies. For instance, Bangladesh shows smaller year-to-year variations, while Tanzania experiences more significant growth. Overall, total improved water demonstrates higher and more stable accessibility levels, whereas total improved sanitation values are lower but growing more rapidly.

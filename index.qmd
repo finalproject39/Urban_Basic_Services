@@ -1,2 +1,5 @@
 # Introduction
+
 This project investigates the annual changes and regional differences in basic service indicators such as improved water sources, improved sanitation facilities, adequate living space, and clean fuels, focusing on poorer countries. The analysis covers national and regional data and delves into categories based on criteria such as whether the country is a Least Developed Country (LDC) or a Landlocked Developing Country (LLDC). This topic was chosen because access to these services is an important measure of urban development and social equity, and a larger population with access to service improvements indicates a better balance between urban development and social equity. Understanding gaps and trends in service access can reveal how different cities and countries are improving the quality of life of their residents. Questions we want to explore include: which areas have the highest rates of access to different services? How do levels of access to different services vary over time?
+
+Github repository: <https://github.com/finalproject39/Urban_Basic_Services.git>
