@@ -11,7 +11,7 @@ Data source: <https://data.unhabitat.org/pages/access-to-basic-services-in-citie
 ```{r}
 library(readxl)
 
-data <- read_excel("/Users/macbookpro/Desktop/DS/EDAV/basic_service.xlsx")
+data <- read_excel("data/basic_service.xlsx")
 
 col_na_percentage <- colSums(is.na(data)) / nrow(data) * 100
 
@@ -47,4 +47,3 @@ col_na_df |>
 ```
 
 From the figure, more than a quarter of all columns have a proportion of missing values of 0, and also a quarter of the columns are greater than 35%. There are also values with a very large percentage of missing values, close to 100%. The median percentage of missing values for all columns is about 15%. Overall the percentage of missing values is not very large, but there are some columns with a lot of missing values that need to be processed.
-

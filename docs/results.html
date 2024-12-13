@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -145,7 +179,22 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#total-improved-sanitation-by-lldc" id="toc-total-improved-sanitation-by-lldc" class="nav-link active" data-scroll-target="#total-improved-sanitation-by-lldc"><span class="header-section-number">3.1</span> Total Improved Sanitation by LLDC</a></li>
+  <li><a href="#total-improved-water-by-subregion" id="toc-total-improved-water-by-subregion" class="nav-link" data-scroll-target="#total-improved-water-by-subregion"><span class="header-section-number">3.2</span> Total Improved Water By Subregion</a></li>
+  <li><a href="#access-to-drinking-water-vs.-total-improved-water-by-ldc" id="toc-access-to-drinking-water-vs.-total-improved-water-by-ldc" class="nav-link" data-scroll-target="#access-to-drinking-water-vs.-total-improved-water-by-ldc"><span class="header-section-number">3.3</span> Access to Drinking Water vs.&nbsp;Total Improved Water by LDC</a></li>
+  <li><a href="#access-to-drinking-water-vs.-total-improved-water-by-subregion" id="toc-access-to-drinking-water-vs.-total-improved-water-by-subregion" class="nav-link" data-scroll-target="#access-to-drinking-water-vs.-total-improved-water-by-subregion"><span class="header-section-number">3.4</span> Access to Drinking Water vs.&nbsp;Total Improved Water by Subregion</a></li>
+  <li><a href="#access-to-different-basic-services-in-bangladesh" id="toc-access-to-different-basic-services-in-bangladesh" class="nav-link" data-scroll-target="#access-to-different-basic-services-in-bangladesh"><span class="header-section-number">3.5</span> Access to Different Basic Services in Bangladesh</a></li>
+  <li><a href="#improved-water-in-bangladesh-by-water-type" id="toc-improved-water-in-bangladesh-by-water-type" class="nav-link" data-scroll-target="#improved-water-in-bangladesh-by-water-type"><span class="header-section-number">3.6</span> Improved Water in Bangladesh by Water Type</a></li>
+  <li><a href="#sufficient-living-area-and-durable-structure-by-ldc" id="toc-sufficient-living-area-and-durable-structure-by-ldc" class="nav-link" data-scroll-target="#sufficient-living-area-and-durable-structure-by-ldc"><span class="header-section-number">3.7</span> Sufficient Living Area and Durable Structure by LDC</a></li>
+  <li><a href="#ldc-region-and-clean-fuel-levels" id="toc-ldc-region-and-clean-fuel-levels" class="nav-link" data-scroll-target="#ldc-region-and-clean-fuel-levels"><span class="header-section-number">3.8</span> LDC, Region and Clean Fuel Levels</a></li>
+  <li><a href="#total-clean-fuel-by-ldc" id="toc-total-clean-fuel-by-ldc" class="nav-link" data-scroll-target="#total-clean-fuel-by-ldc"><span class="header-section-number">3.9</span> Total Clean Fuel by LDC</a></li>
+  <li><a href="#basic-services-by-subregion" id="toc-basic-services-by-subregion" class="nav-link" data-scroll-target="#basic-services-by-subregion"><span class="header-section-number">3.10</span> Basic Services by Subregion</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://finalproject39.github.io/Urban_Basic_Services/edit/main/results.qmd" class="toc-action"><i class="bi bi-git"></i>Edit this page</a></li><li><a href="https://finalproject39.github.io/Urban_Basic_Services/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -169,8 +218,395 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'dplyr'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:stats':
+
+    filter, lag</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:base':
+
+    intersect, setdiff, setequal, union</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(forcats)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(vcd)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: grid</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"data/BasicService.xlsx"</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>LDC <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(data<span class="sc">$</span>LDC)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>LDC <span class="ot">&lt;-</span> <span class="fu">fct_recode</span>(data<span class="sc">$</span>LDC,</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>                       <span class="st">"Least Developed"</span> <span class="ot">=</span> <span class="st">"1"</span>,</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>                       <span class="st">"Not Least Developed"</span> <span class="ot">=</span> <span class="st">"0"</span>)</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>LLDC <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(data<span class="sc">$</span>LLDC)</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>LLDC <span class="ot">&lt;-</span> <span class="fu">fct_recode</span>(data<span class="sc">$</span>LLDC,</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>                       <span class="st">"Landlocked"</span> <span class="ot">=</span> <span class="st">"1"</span>,</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>                       <span class="st">"Not Landlocked"</span> <span class="ot">=</span> <span class="st">"0"</span>)</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>SIDS <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(data<span class="sc">$</span>SIDS)</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>SIDS <span class="ot">&lt;-</span> <span class="fu">fct_recode</span>(data<span class="sc">$</span>SIDS,</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>                       <span class="st">"Island"</span> <span class="ot">=</span> <span class="st">"1"</span>,</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>                       <span class="st">"Not Island"</span> <span class="ot">=</span> <span class="st">"0"</span>)</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>data2022R <span class="ot">&lt;-</span> <span class="fu">filter</span>(data,<span class="st">`</span><span class="at">National/SubNationalClassification</span><span class="st">`</span><span class="sc">==</span><span class="st">'Region'</span><span class="sc">&amp;</span>Year<span class="sc">==</span><span class="st">'2022'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<section id="total-improved-sanitation-by-lldc" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="total-improved-sanitation-by-lldc"><span class="header-section-number">3.1</span> Total Improved Sanitation by LLDC</h2>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>data1 <span class="ot">&lt;-</span> data <span class="sc">|&gt;</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="st">`</span><span class="at">National/SubNationalClassification</span><span class="st">`</span><span class="sc">==</span><span class="st">"Region"</span>, Year <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">2010</span>,<span class="dv">2014</span>,<span class="dv">2018</span>,<span class="dv">2022</span>))</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(data1, <span class="fu">aes</span>(<span class="at">x=</span><span class="fu">factor</span>(LLDC), <span class="at">y=</span><span class="st">`</span><span class="at">TotalImprovedSanitation</span><span class="st">`</span>, <span class="at">fill =</span> <span class="fu">factor</span>(LLDC)))<span class="sc">+</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">outlier.color =</span> <span class="st">"red"</span>, <span class="at">outlier.size =</span> <span class="dv">1</span>)<span class="sc">+</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>Year, <span class="at">nrow =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Boxlpot of Total Improved Sanitation by LLDC"</span>,</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">x=</span><span class="st">"LLDC"</span>,</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Total Improved Sanitation(%)"</span>,</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">"LLDC"</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>    )<span class="sc">+</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">8</span>,<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>),</span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 1 row containing non-finite outside the scale range
+(`stat_boxplot()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="results_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>From 2010 to 2022, both landlocked and non-landlocked countries improved their sanitation coverage, with non-landlocked countries showing more significant progress. In 2010, non-landlocked countries had a higher median and narrower distribution, indicating more consistent coverage. By 2014, the median for landlocked countries improved but still showed significant regional disparities, with some areas lagging behind. By 2022, the median for non-landlocked countries reached nearly 100%, demonstrating high consistency, while landlocked countries still exhibited a wider range of coverage, reflecting greater disparities.</p>
+</section>
+<section id="total-improved-water-by-subregion" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="total-improved-water-by-subregion"><span class="header-section-number">3.2</span> Total Improved Water By Subregion</h2>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>data2022R <span class="sc">|&gt;</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> TotalImprovedwater)) <span class="sc">+</span> </span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">fill =</span> <span class="st">"cornflowerblue"</span>, <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">bins =</span> <span class="dv">20</span>) <span class="sc">+</span> </span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="fu">vars</span>(SubregionName),<span class="at">scales =</span> <span class="st">"free_y"</span>) <span class="sc">+</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">'Total Improved Water in Different Subregions'</span>, </span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">'Total improved water'</span>) <span class="sc">+</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 2 rows containing non-finite outside the scale range
+(`stat_bin()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="results_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Central Asia: Most regions have a very high volume of improved water, approaching 100%. This indicates that improved water coverage is generally high in Central Asia.</p>
+<p>South-eastern Asia: The distribution in this region is various, with the amount of improved water ranging from low to high. The improved water supply is very low in some areas (close to 0%) and very high in others (close to 100%). This indicates that there is a wide variation in the coverage of improved water sources across different regions in South-eastern Asia. While some regions have made significant progress in water resource improvement, others may still face severe challenges.</p>
+<p>Sub-Saharan Africa: All improved water resources are greater than 50%, with some approaching 100%. This indicates that the majority of regions is doing well, with a small number of regions still able to further increase the amount of improved water resources.</p>
+</section>
+<section id="access-to-drinking-water-vs.-total-improved-water-by-ldc" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="access-to-drinking-water-vs.-total-improved-water-by-ldc"><span class="header-section-number">3.3</span> Access to Drinking Water vs.&nbsp;Total Improved Water by LDC</h2>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>data2022R <span class="sc">|&gt;</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> TotalImprovedwater, <span class="at">y =</span> Accesstobasicdrinkingwaterservices)) <span class="sc">+</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hex</span>(<span class="at">bins =</span> <span class="dv">15</span>) <span class="sc">+</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> LDC) <span class="sc">+</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_gradient</span>(<span class="at">low =</span> <span class="st">"lightblue"</span>, <span class="at">high =</span> <span class="st">"darkblue"</span>)<span class="sc">+</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">'Access to Drinking Water Services vs. Total Improved Water by LDC'</span>,</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">'Total improved water'</span>,</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">'Access to drinking water'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 4 rows containing non-finite outside the scale range
+(`stat_binhex()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="results_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Not Least Developed Country: Access to basic drinking water services and improved water resources are directly proportional in non-LDCs, and many of them have high levels, with only a few at low levels.</p>
+<p>Least Developed Country: Access to basic drinking water services and improved water resources are proportional in most of the LDCs. However, there are some regions where even with high levels of improved water resources, access to basic drinking water services are still low, indicating that many people in these regions still do not have access to water within a short distance. And the overall level is not high.</p>
+<p>This also shows that there is a relationship between access to drinking water and the level of development of the country, with the least developed countries having smaller access to drinking water.</p>
+</section>
+<section id="access-to-drinking-water-vs.-total-improved-water-by-subregion" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="access-to-drinking-water-vs.-total-improved-water-by-subregion"><span class="header-section-number">3.4</span> Access to Drinking Water vs.&nbsp;Total Improved Water by Subregion</h2>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>data2022R <span class="sc">|&gt;</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> TotalImprovedwater, <span class="at">y =</span> Accesstobasicdrinkingwaterservices, </span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">color =</span> SubregionName)) <span class="sc">+</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">'Access to Drinking Water Services vs. Total Improved Water by Subregion'</span>,</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">color =</span> <span class="st">'Subregion'</span>) <span class="sc">+</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 4 rows containing missing values or values outside the scale range
+(`geom_point()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="results_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>We continued to explore access to drinking water in different subregions based on the previous question. We find that those regions with low access to drinking water even though they have high improved water resources are located in South-eastern Asia.</p>
+<p>Central Asia: Regions located in Central Asia have high levels of improved water and access to drinking water resources approaching 100%.</p>
+<p>Sub-Saharan Africa: Access to drinking water resources and improved water resources are proportional in Sub-Saharan Africa, with the overall level slightly lower than in Central Asia, but also at a higher level.</p>
+<p>South-eastern Asia: The proportion of accessible drinking water resources is low in many regions and not proportional to the amount of improved water resource. This means that many South-eastern Asia regions not only need to increase the volume of improved water, but also work to increase access to the improved water resources that are already available.</p>
+</section>
+<section id="access-to-different-basic-services-in-bangladesh" class="level2" data-number="3.5">
+<h2 data-number="3.5" class="anchored" data-anchor-id="access-to-different-basic-services-in-bangladesh"><span class="header-section-number">3.5</span> Access to Different Basic Services in Bangladesh</h2>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>dataBGD <span class="ot">&lt;-</span> data <span class="sc">|&gt;</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="st">`</span><span class="at">National/SubNationalClassification</span><span class="st">`</span><span class="sc">==</span><span class="st">'National'</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>         <span class="sc">&amp;</span><span class="st">`</span><span class="at">Country/Territory/AreaName</span><span class="st">`</span><span class="sc">==</span><span class="st">'Bangladesh'</span>) <span class="sc">|&gt;</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Year, TotalImprovedwater, TotalImprovedSanitation, Durablestructure,</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>         Totalpiped, Totalnonpiped, Connectiontosewerage, Totalnonsewered)</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>dataBGD <span class="sc">|&gt;</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> TotalImprovedwater<span class="sc">:</span>Durablestructure,</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">'Indicator'</span>, <span class="at">values_to =</span> <span class="st">'Value'</span>) <span class="sc">|&gt;</span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Year, <span class="at">y =</span> Value, <span class="at">color =</span> Indicator, <span class="at">group =</span> Indicator)) <span class="sc">+</span></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()<span class="sc">+</span></span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> dataBGD<span class="sc">$</span>Year) <span class="sc">+</span></span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Year"</span>, <span class="at">y =</span> <span class="st">"Value"</span>, <span class="at">color =</span> <span class="st">"Indicator"</span>,</span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">'Basic Services in Bangladesh Over Years'</span>)<span class="sc">+</span></span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="results_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Total Improved water: Improved water resources in Bangladesh have been maintained at a very high level close to 100% from 1994 to 2019, indicating that Bangladesh has been performing well in improving water resources for a long time.</p>
+<p>Total Improved Sanitation: The level of improved sanitation has been volatile, first rising and then falling, reaching its lowest level in 2004 and then gradually recovering to reach its highest level in 2019. This indicates that Bangladesh is still making efforts to improve sanitation and has had better results in recent years.</p>
+<p>Durable Structure: The overall levels of durable structure are lower than sanitation improvements. The trends of durable housing structures and improved sanitation conditions are very similar, both initially increasing and then decreasing, reaching their lowest levels in 2004, before beginning to rise again. However, after the initial recovery, the durable structures experienced two more fluctuations, with the highest level reached in 2017.</p>
+</section>
+<section id="improved-water-in-bangladesh-by-water-type" class="level2" data-number="3.6">
+<h2 data-number="3.6" class="anchored" data-anchor-id="improved-water-in-bangladesh-by-water-type"><span class="header-section-number">3.6</span> Improved Water in Bangladesh by Water Type</h2>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>dataBGD <span class="sc">|&gt;</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> Totalpiped<span class="sc">:</span>Totalnonpiped,</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">'WaterType'</span>, <span class="at">values_to =</span> <span class="st">'Value'</span>) <span class="sc">|&gt;</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> Year, <span class="at">y =</span> Value, <span class="at">fill =</span> WaterType)) <span class="sc">+</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>, <span class="at">position =</span> <span class="st">"stack"</span>) <span class="sc">+</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> dataBGD<span class="sc">$</span>Year) <span class="sc">+</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"cornflowerblue"</span>, <span class="st">"lightcoral"</span>),</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>                     <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Piped Water"</span>, <span class="st">"Non-piped Water"</span>))<span class="sc">+</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Improved Water by Type Over Years"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="results_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>In the previous question we found that Bangladesh is doing well in improving water resources, and we further explored how well it is doing for different type of water resources.</p>
+<p>Although the overall improved water resources are close to 100% every year, the improvement in piped and non-piped water is not the same. The proportion of improved piped water is greater than that of non-piped water every year. Even in 2011, when the proportion of non-piped water was the highest, it was still less than 50%.</p>
+</section>
+<section id="sufficient-living-area-and-durable-structure-by-ldc" class="level2" data-number="3.7">
+<h2 data-number="3.7" class="anchored" data-anchor-id="sufficient-living-area-and-durable-structure-by-ldc"><span class="header-section-number">3.7</span> Sufficient Living Area and Durable Structure by LDC</h2>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>data7 <span class="ot">&lt;-</span> </span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(data, <span class="st">`</span><span class="at">National/SubNationalClassification</span><span class="st">`</span> <span class="sc">==</span> <span class="st">"National"</span>, Year <span class="sc">==</span> <span class="dv">2022</span>) <span class="sc">|&gt;</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(Sufficientlivingarea)</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>data7_long <span class="ot">&lt;-</span> data7 <span class="sc">|&gt;</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="st">`</span><span class="at">Country/Territory/AreaName</span><span class="st">`</span>, LDC, Sufficientlivingarea, Durablestructure) <span class="sc">|&gt;</span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> <span class="fu">c</span>(Sufficientlivingarea, Durablestructure),</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">"Indicator"</span>,</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">"Value"</span></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="st">`</span><span class="at">Country/Territory/AreaName</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">factor</span>(<span class="st">`</span><span class="at">Country/Territory/AreaName</span><span class="st">`</span>, <span class="at">levels =</span> <span class="fu">unique</span>(data7<span class="sc">$</span><span class="st">`</span><span class="at">Country/Territory/AreaName</span><span class="st">`</span>)))</span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(data7_long, <span class="fu">aes</span>(<span class="at">x =</span> Value, <span class="at">y =</span> <span class="st">`</span><span class="at">Country/Territory/AreaName</span><span class="st">`</span>, <span class="at">color =</span> Indicator)) <span class="sc">+</span></span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> LDC, <span class="at">scales =</span> <span class="st">"free_y"</span>) <span class="sc">+</span> </span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Cleveland Plot of Sufficient Living Area and Durable Structure by LDC"</span>,</span>
+<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Value (%)"</span>,</span>
+<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Country/Territory/Area"</span>,</span>
+<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"Indicator"</span></span>
+<span id="cb18-22"><a href="#cb18-22" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb18-23"><a href="#cb18-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb18-24"><a href="#cb18-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"top"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="results_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>This figure shows that non-least developed countries generally have higher values for both indicators, with most exceeding 80%. In contrast, least developed countries have lower overall values, with a wider range from 20% to nearly 100%. Some countries, like the Philippines, show significantly lower values for Sufficient Living Area compared to others. Most countries exhibit similar performance in Durable Structure and Sufficient Living Area, with non-least developed countries showing greater consistency between the two indicators. For example, Thailand and Uzbekistan have nearly overlapping values, demonstrating balanced performance.</p>
+</section>
+<section id="ldc-region-and-clean-fuel-levels" class="level2" data-number="3.8">
+<h2 data-number="3.8" class="anchored" data-anchor-id="ldc-region-and-clean-fuel-levels"><span class="header-section-number">3.8</span> LDC, Region and Clean Fuel Levels</h2>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>data8 <span class="ot">&lt;-</span> data2022R <span class="sc">|&gt;</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">CleanFuelLevel =</span> <span class="fu">case_when</span>(</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>      Totalcleanfuel <span class="sc">&lt;=</span> <span class="dv">33</span> <span class="sc">~</span> <span class="st">"Low"</span>,</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>      Totalcleanfuel <span class="sc">&gt;</span> <span class="dv">33</span> <span class="sc">&amp;</span> Totalcleanfuel <span class="sc">&lt;=</span> <span class="dv">67</span> <span class="sc">~</span> <span class="st">"Medium"</span>,</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>      Totalcleanfuel <span class="sc">&gt;</span> <span class="dv">67</span> <span class="sc">~</span> <span class="st">"High"</span>,</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>data8<span class="sc">$</span>CleanFuelLevel <span class="ot">&lt;-</span> <span class="fu">factor</span>(data8<span class="sc">$</span>CleanFuelLevel, </span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>                              <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"High"</span>, <span class="st">"Medium"</span>, <span class="st">"Low"</span>),</span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>                              <span class="at">ordered =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a><span class="fu">mosaic</span>(<span class="sc">~</span>LDC <span class="sc">+</span> RegionName <span class="sc">+</span> CleanFuelLevel,</span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a>       <span class="at">data =</span> data8,</span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a>       <span class="at">shade =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a>       <span class="at">direction =</span> <span class="fu">c</span>(<span class="st">"v"</span>,<span class="st">"v"</span>,<span class="st">"h"</span>),</span>
+<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a>       <span class="at">legend =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a>       <span class="at">main =</span> <span class="st">"Mosaic Plot of LDC, Region and Clean Fuel Levels"</span></span>
+<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a>       )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="results_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>This chart shows that in non-least developed countries, Africa has a high proportion of low clean fuel accessibility, close to the expected value. Asia’s low clean fuel accessibility is significantly higher than expected (blue area), highlighting a severe reliance on low clean fuel levels. Meanwhile, Asia’s high clean fuel accessibility is significantly lower than expected (red area), indicating a substantial gap in clean fuel infrastructure development.</p>
+<p>In least developed countries, Africa dominates with an extremely high proportion of low clean fuel accessibility (dark blue area), far exceeding expectations. In contrast, Asia has a smaller proportion of low clean fuel accessibility, but regions with high clean fuel accessibility are almost nonexistent.</p>
+<p>Overall, low clean fuel accessibility prevails in Africa. Accelerating the development of clean fuel infrastructure is critical for least developed countries, particularly in Asia.</p>
+</section>
+<section id="total-clean-fuel-by-ldc" class="level2" data-number="3.9">
+<h2 data-number="3.9" class="anchored" data-anchor-id="total-clean-fuel-by-ldc"><span class="header-section-number">3.9</span> Total Clean Fuel by LDC</h2>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>data9 <span class="ot">&lt;-</span> data2022R</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(data9, <span class="fu">aes</span>(<span class="at">x =</span> Totalcleanfuel, <span class="at">color =</span> <span class="fu">factor</span>(LDC), <span class="at">fill =</span> <span class="fu">factor</span>(LDC))) <span class="sc">+</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">alpha =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Density Curve of Total Clean Fuel"</span>,</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Total Clean Fuel"</span>,</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Density"</span>,</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"LDC"</span>,</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">"LDC"</span></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 19 rows containing non-finite outside the scale range
+(`stat_density()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="results_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The figure indicates a dispersed distribution of clean fuel coverage, with both non-least developed and least developed countries exhibiting two peaks. In non-least developed countries, coverage is primarily concentrated in the high range, with a higher density peak. The distribution is spread more in least-developed countries, with a significantly low coverage range and the highest peak below 25%. This shows that while both groups display a bimodal distribution, non-least developed countries generally have higher overall coverage, whereas least developed countries show greater variability.</p>
+</section>
+<section id="basic-services-by-subregion" class="level2" data-number="3.10">
+<h2 data-number="3.10" class="anchored" data-anchor-id="basic-services-by-subregion"><span class="header-section-number">3.10</span> Basic Services by Subregion</h2>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>data10 <span class="ot">&lt;-</span> <span class="fu">filter</span>(data, <span class="st">`</span><span class="at">National/SubNationalClassification</span><span class="st">`</span> <span class="sc">==</span> <span class="st">"National"</span>, Year <span class="sc">==</span> <span class="dv">2022</span>)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>data10_long <span class="ot">&lt;-</span> data10 <span class="sc">|&gt;</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(SubregionName, <span class="st">`</span><span class="at">Country/Territory/AreaName</span><span class="st">`</span>, Mobilephone, Electricity_other, Internet) <span class="sc">|&gt;</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> <span class="fu">c</span>( Mobilephone, Electricity_other, Internet),</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">"Indicator"</span>,</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">"Value"</span></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(data10_long, <span class="fu">aes</span>(<span class="at">x=</span><span class="st">`</span><span class="at">Country/Territory/AreaName</span><span class="st">`</span>, <span class="at">y =</span> Value, <span class="at">fill =</span> Indicator)) <span class="sc">+</span></span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>, <span class="at">position =</span> <span class="st">"stack"</span>) <span class="sc">+</span></span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>SubregionName, <span class="at">scales =</span> <span class="st">"free_x"</span>) <span class="sc">+</span></span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Stacked Bar Chart of Basic Services"</span>,</span>
+<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Region Name"</span>,</span>
+<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Value (%)"</span>,</span>
+<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">"Indicator"</span></span>
+<span id="cb22-18"><a href="#cb22-18" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb22-19"><a href="#cb22-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb22-20"><a href="#cb22-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb22-21"><a href="#cb22-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">6</span>,<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>),</span>
+<span id="cb22-22"><a href="#cb22-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">strip.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">8</span>),</span>
+<span id="cb22-23"><a href="#cb22-23" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 9 rows containing missing values or values outside the scale range
+(`geom_bar()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="results_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The chart shows that Central Asia (Uzbekistan), Latin America and the Caribbean (Jamaica), and Southern Asia (Nepal) have relatively high coverage rates. In Sub-Saharan Africa, the coverage varies significantly, with notable differences between countries. Mobilephone services dominate in most countries, indicating a high level of accessibility to this infrastructure. Electricity coverage varies greatly across countries, with higher proportions in some (e.g., Kenya and Jamaica) and lower in others (e.g., Mozambique and Liberia). Internet have relatively low shares, indicating limited adoption as primary basic services in most countries.</p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -602,7 +1038,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     </div>   
     <div class="nav-footer-center">
       &nbsp;
-    <div class="toc-actions"><ul><li><a href="https://finalproject39.github.io/Urban_Basic_Services/edit/main/results.qmd" class="toc-action"><i class="bi bi-git"></i>Edit this page</a></li><li><a href="https://finalproject39.github.io/Urban_Basic_Services/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://finalproject39.github.io/Urban_Basic_Services/edit/main/results.qmd" class="toc-action"><i class="bi bi-git"></i>Edit this page</a></li><li><a href="https://finalproject39.github.io/Urban_Basic_Services/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
 <p>This book was built with <a href="https://quarto.org/">Quarto</a>.</p>
 </div>
