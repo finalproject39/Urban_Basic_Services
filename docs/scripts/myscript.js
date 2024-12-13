@@ -1,17 +1,17 @@
 // add your JavaScript/D3 to this file
 
-var svg = d3.select("svg"),
-    margin = {top: 60, right: 20, bottom: 70, left: 100},
+const svg = d3.select("svg"),
+    margin = {top: 60, right: 40, bottom: 70, left: 100},
     width = +svg.attr("width") - margin.left - margin.right,
     height = +svg.attr("height") - margin.top - margin.bottom,
     g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-var x = d3.scaleLinear().range([0, width]),
+const x = d3.scaleLinear().range([0, width]),
     y = d3.scaleLinear().range([height, 0]);
 
-var xAxis = g.append("g")
+const xAxis = g.append("g")
     .attr("transform", "translate(0," + height + ")");
-var yAxis = g.append("g");
+const yAxis = g.append("g");
 
 
 // title
@@ -22,6 +22,15 @@ svg.append("text")
     .style("font-size", "20px")
     .style("text-decoration", "underline")
     .text("Water and Sanitation Improvements Over Time");
+
+// tool tip
+svg.append("text")
+    .attr("x", (width) - 60 + margin.left)
+    .attr("y", margin.top / 2+20)
+    .attr("text-anchor", "middle")
+    .style("font-size", "15px")
+    .style("fill", "gray")
+    .text("Hover over the point");
 
 // x axis
 svg.append("text")
@@ -39,7 +48,7 @@ svg.append("text")
     .text("Percentage");
 
 // legend
-var legend1 = svg.append("g")
+const legend1 = svg.append("g")
     .attr("transform", "translate(" + (margin.left + 500) + "," + (margin.top + 220) + ")");
 
 legend1.append("rect")
@@ -54,7 +63,7 @@ legend1.append("text")
     .style("font-size", "15px")
     .attr("alignment-baseline","middle");
 
-var legend2 = svg.append("g")
+const legend2 = svg.append("g")
     .attr("transform", "translate(" + (margin.left + 500) + "," + (margin.top + 250) + ")");
     
 legend2.append("rect")
@@ -78,7 +87,7 @@ d3.csv("countrydata.csv").then(function(data) {
     });
 
     // country options
-    var countries = Array.from(new Set(data.map(d => d.Country)));
+    const countries = Array.from(new Set(data.map(d => d.Country)));
     d3.select("#countrySelect")
       .selectAll("option")
       .data(countries)
@@ -94,19 +103,21 @@ d3.csv("countrydata.csv").then(function(data) {
     });
 
     function update(country) {
-        var filteredData = data.filter(d => d.Country === country);
+        const filteredData = data.filter(d => d.Country === country);
 
         x.domain(d3.extent(filteredData, d => d.Year));
         y.domain([0, 100]);
 
         // create lines
-        var lineWater = d3.line()
+        const lineWater = d3.line()
             .x(d => x(d.Year))
             .y(d => y(d.TotalImprovedwater));
         
-        var lineSanitation = d3.line()
+        const lineSanitation = d3.line()
             .x(d => x(d.Year))
             .y(d => y(d.TotalImprovedSanitation));
+        
+        const tooltip = d3.select("#tooltip");
 
         g.selectAll(".lineWater")
           .data([filteredData])
@@ -125,6 +136,38 @@ d3.csv("countrydata.csv").then(function(data) {
           .attr("fill", "none")
           .attr("stroke", "green")
           .attr("stroke-width", 2);
+          
+        g.selectAll(".dotWater")
+          .data(filteredData)
+          .join("circle")
+          .attr("class", "dotWater")
+          .attr("cx", d => x(d.Year))
+          .attr("cy", d => y(d.TotalImprovedwater))
+          .attr("r", 5)
+          .attr("fill", "steelblue")
+          .on("mouseover", (event, d) => {
+            tooltip.style("visibility", "visible")
+              .html(`Year: ${d.Year}<br>Water: ${d.TotalImprovedwater}%`)
+              .style("left", (event.pageX + 10) + "px")
+              .style("top", (event.pageY + 10) + "px");
+          })
+          .on("mouseout", () => tooltip.style("visibility", "hidden"));
+          
+        g.selectAll(".dotSanitation")
+          .data(filteredData)
+          .join("circle")
+          .attr("class", "dotSanitation")
+          .attr("cx", d => x(d.Year))
+          .attr("cy", d => y(d.TotalImprovedSanitation))
+          .attr("r", 5)
+          .attr("fill", "green")
+          .on("mouseover", (event, d) => {
+            tooltip.style("visibility", "visible")
+              .html(`Year: ${d.Year}<br>Sanitation: ${d.TotalImprovedSanitation}%`)
+              .style("left", (event.pageX + 10) + "px")
+              .style("top", (event.pageY + 10) + "px");
+          })
+          .on("mouseout", () => tooltip.style("visibility", "hidden"));
 
         // update axis
         xAxis.call(d3.axisBottom(x).tickFormat(d3.format("d")));
